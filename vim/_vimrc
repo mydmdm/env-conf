@@ -1,0 +1,348 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" default setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" computer-specific setting
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let hname = hostname()
+if hname=='CISYYANG00'
+  " LSI computer
+elseif hname==''
+  " home comuter
+else
+  " linux workstation
+endif
+
+if has("win32")
+  let putty_path = '\"C:\Program Files (x86)\putty\"'
+  let putty_key  = putty_path.'\id_rsa.ppk'
+  let ctags_path = 'C:\Users\yyang\Software\ctags58'
+else
+  let putty_path = 'nil'
+  let ctags_path = '/usr/bin/ctags'
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" shortcuts
+""""""""""""""""""""""""""""""""""""""""""""""""""
+"map :t :tabnew
+map :W :w
+map :X :x
+map :Q :q
+map T :tabNext<CR>
+map :l :set nomodifiable
+map :ul :set modifiable
+map f zCzO
+map F zC
+map q zc
+map e zo
+
+map - %=
+"map - [{
+"map = ]}
+map H ^
+map E $
+map <C-A> ^
+noremap <C-A> <ESC>^
+vnoremap <C-A> <ESC>^
+inoremap <C-A> <ESC>^
+map <C-E> $
+noremap <C-E> <ESC>$
+vnoremap <C-E> <ESC>$
+inoremap <C-E> <ESC>$
+"map <PageUp> ^
+"noremap <PageUp> <ESC>^
+"vnoremap <PageUp> <ESC>^
+"inoremap <PageUp> <ESC>^
+"map <PageDown> $
+"noremap <PageDown> <ESC>$
+"vnoremap <PageDown> <ESC>$
+"inoremap <PageDown> <ESC>$
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" font
+""""""""""""""""""""""""""""""""""""""""""""""""""
+try 
+  set guifont=Source_Code_Pro:h11:b:cANSI
+catch /^Vim\%((\a\+)\)\=:E/
+  try 
+    set guifont=Bitstream\ Vera\ Sans\ Mono\ 12
+  catch /^Vim\%((\a\+)\)\=:E/
+    set guifont=DejaVu\ LGC\ Sans\ Mono\ 10
+  endtry
+endtry
+
+"silent! set guifont=Source\ Code\ Pro\ Light\ 10
+"if &guifont != 'Source Code Pro Light 10'
+"  set guifont=Bitstream\ Vera\ Sans\ Mono\ 12
+"endif
+"if &guifont != 'Bitstream Vera Sans Mono 12'
+"  set guifont=DejaVu\ LGC\ Sans\ Mono\ 10
+"endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" editing
+""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+set nobackup
+set noswapfile
+set mouse=a
+set nocompatible
+set autochdir   " auto change dir to current file 
+behave xterm
+set background=light
+try 
+  colorscheme solarized
+catch /^Vim\%((\a\+)\)\=:E185/
+  try 
+    colorscheme molokai
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+  endtry
+endtry
+if has("gui_running")
+else
+  set t_Co=256
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" searching
+""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch
+set incsearch
+set showcmd
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" wrap
+""""""""""""""""""""""""""""""""""""""""""""""""""
+set tw=0
+set textwidth=0
+set wrapmargin=0
+set nowrap
+"set wrap
+"set nowrapscan
+"set autoread
+set whichwrap=b,s,<,>,[,]
+
+""""""""""""""""""""
+" tabs and indent
+""""""""""""""""""""
+set tabstop=4 et
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+" set autoindent
+set smartindent
+set cindent
+set copyindent
+"colorscheme  spring
+"colorscheme  darkblue
+"colo  colorful
+set wildmenu
+set backspace=2
+filetype on
+filetype plugin on
+filetype indent on
+set nocp
+set fileencodings=utf-8,cp936,big5,euc-jp,euc-kr,latin1,ucs-bom
+set ambiwidth=double
+set modifiable
+syntax on
+set showmatch
+set nu
+set helplang=cn
+set ignorecase smartcase
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" folding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set foldenable
+"set foldlevel=2
+"set foldmethod=indent
+"set foldmethod=marker
+"set fdm=syntax
+"nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"hi Folded term=standout ctermfg=darkcyan ctermbg=NONE guifg=Black guibg=#e3c1a5
+"hi Folded guibg=black guifg=red
+":hi Folded guibg=black guifg=grey40 ctermfg=grey ctermbg=darkgrey
+":hi Folded guibg=black guifg=red ctermfg=red ctermbg=black 
+":hi FoldColumn guibg=black guifg=grey20 ctermfg=4 ctermbg=7
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" built in completion
+"""""""""""""""""""""""""""""""""""""""""""""""""
+set wildmode=list:full
+set wildmenu
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" neo completion cache
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Use neocomplcache. 
+" let g:neocomplcache_enable_at_startup = 1 
+" Disable auto completion (to use C-x C-u)
+" let g:neocomplcache_disable_auto_complete = 1
+" Use smartcase. 
+" let g:neocomplcache_enable_smart_case = 1 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" cscope key map
+"""""""""""""""""""""""""""""""""""""""""""""""""
+if has("cscope")
+    set csprg=/tools/cfr/bin/cscope
+    set cscopetag cscopeverbose
+    set csto=0
+    set cst
+    set nocsverb
+    if has("quickfix")
+      set cscopequickfix=s-,c-,d-,i-,t-,e-
+    end
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+    set cscopetag
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>      
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>      
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>      
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>      
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>      
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>      
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>     
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" grep
+"""""""""""""""""""""""""""""""""""""""""""""""""
+if has("grep")
+    
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" ctags
+"""""""""""""""""""""""""""""""""""""""""""""""""
+if has("win32")
+  set tags+=ctags_path;
+  set tags=tags;
+else
+  let Tlist_Ctags_Cmd = ctags_path
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"  remote file
+"""""""""""""""""""""""""""""""""""""""""""""""""
+if putty_path != 'nil' 
+  let g:netrw_cygwin = 0
+  let g:netrw_silent = 1
+  "let g:netrw_list_cmd = putty_path.'\PLINK.exe -P ##### user@host.com ls -Fa '
+  "let g:netrw_ssh_cmd  = putty_path.'\PLINK -T -ssh'
+  "let g:netrw_scp_cmd  = putty_path.'\PSCP.EXE -scp -i '.putty_key
+  "let g:netrw_sftp_cmd = putty_path.'\PSFTP.EXE -i '.putty_key
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" show function name
+"""""""""""""""""""""""""""""""""""""""""""""""""
+fun! ShowFuncName()
+  let lnum = line(".")
+  let col = col(".")
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+  echohl None
+  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+map ,f :call ShowFuncName() <CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"autocmd GUIEnter * winpos 0 0 | set lines=9999 columns=99999
+"autocmd BufWritePre,FileWritePre *.v   ks|call LastModified()|'s
+"let g:miniBufExplMapCTabSwitchBufs=1
+"let g:miniBufExplMapWindowNavVim=1
+"let g:miniBufExplMapWindowNavArrows=1
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+"let Tlist_Use_Right_Window = 1
+let Tlist_Use_Bottom_Window = 1
+"let g:winManagerWindowLayout='FileExplorer,TagList'
+"let g:winManagerWindowLayout='FileExplorer'
+"let g:winManagerWindowLayout='nerdtree|TagList'
+"let g:winManagerWindowLayout='TagList'
+map tl :Tlist<CR>
+map ts :TlistSync<CR>
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" matching brackets
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {}<ESC>i
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+
+function ClosePair(char)
+if getline('.')[col('.') - 1] == a:char
+    return "\<Right>"
+else
+    return a:char
+endif
+endf
+nnoremap <Down> gj
+nnoremap <Up> gk
+
+"Nice statusbar
+set laststatus=2
+set statusline=
+set statusline+=%2*%-3.3n%0*\ " buffer number
+set statusline+=%f\ " file name
+set statusline+=%h%1*%m%r%w%0* " flag
+
+"set statusline+=[
+"if v:version >= 600
+"set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
+"set statusline+=%{&encoding}, " encoding
+"endif
+"set statusline+=%{&fileformat}] " file format
+
+"set statusline +=[
+"set statusline +=%{ShowFuncName()}
+"set statusline +=]
+
+if filereadable(expand("$VIM/vimfiles/plugin/vimbuddy.vim"))
+set statusline+=\ %{VimBuddy()} " vim buddy
+endif
+set statusline+=%= " right align
+"set statusline+=%2*0x%-8B\ " current char
+set statusline+=0x%-8B\ " current char
+set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
+
+
+" Line highlight
+"set cursorline
+"set cursorcolumn
+"hi cursorline   term=reverse cterm=reverse guibg=#0000FF
+"hi CursorColumn term=reverse cterm=reverse guibg=#0000FF
+hi CursorLine   term=NONE cterm=NONE ctermbg=darkblue guibg=#0000FF
+hi CursorColumn term=NONE cterm=NONE ctermbg=darkblue guibg=#0000FF
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" cvs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command -nargs=1 CVSdiff silent call CVSdiff("%", "<args>")
+function! CVSdiff(filename, cvsversion)
+  " append a:filename to keep extension and therefore highlighting mode
+  let patchname = tempname() . a:filename
+  let tempname = tempname() . a:filename
+  let newname = tempname() . a:filename
+  execute "!cvs diff -a -r " . a:cvsversion . " " . a:filename . " > " . patchname
+  execute "!cp " . a:filename . " " . tempname
+  execute "!patch -R -o " . newname . " " . tempname . " < " . patchname
+  execute "vertical diffsplit " . newname
+  call delete(patchname)
+  call delete(tempname)
+  call delete(newname)
+endfunction
