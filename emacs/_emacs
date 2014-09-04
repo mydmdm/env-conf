@@ -1,54 +1,36 @@
 ; -*-Lisp-*-
-;; here is from http://forum.ubuntu.org.cn/viewtopic.php?f=68&t=20781&sid=7caabc5dfe331ae08a97b3f0ae3c1312 
-;;========================================
-;; Apperance Setting 
-;;========================================
+;;============================================================ 
+;; please define emacs-where when calling this script
+;;============================================================ 
+;(setq emacs-where "~/repository/linux/emacs")
+;(setq default-directory (concat emacs-where "/"))
+;(add-to-list 'load-path (concat emacs-where "/site-lisp"))
+;(load-file (concat emacs-where "/_emacs"))
 
-;; disable toolbar
-;;(tool-bar-mode nil)
-;;(menu-bar-mode nil)
-
-;; disable scroll, use mouse wheel
-;;(scroll-bar-mode nil)
-
+;;============================================================ 
+;; editor misc
+;;============================================================ 
 ;; no startup information
-(setq inhibit-startup-message t)
-
-;;========================================
-;; key binding
-;;========================================
-
-;; C-z set bookmark ;; C-z:M-x iconify-or-deiconify-frame:C-z,C-x C-z
-(global-set-key (kbd "C-z") 'set-mark-command)
-
-;;F10 hide/unveil menu bar;; M-x menu-bar-open
-;;(global-set-key (kbd "F10") 'menu-bar-mode)
-
-;;WIN+s Shell ;; M-x shell
-(global-set-key (kbd "s-s") 'shell)
-;;(define-key ctl-x-map "\M-s" 'shell)
-
-;;WIN+space set-mark
-(global-set-key (kbd "s-SPC") 'set-mark-command)
-
-;;========================================
-;; buffer
-;;========================================
-
-(setq default-line-spacing 4)
-(setq default-fill-column 60)
-(setq default-major-mode 'text-mode)
-(setq kill-ring-max 200)
-(setq require-final-newline t)
-(setq-default truncate-partial-width-windows nil)
-;; line wrap
-(setq-default truncate-lines t)
-
-;; highligh block selection
+(setq inibit-startup-message t)
+(setq inhibit-splash-screen t)
+(setq gnus-inibit-startup-message t)
+;; no backup
+(setq-default make-backup-files nil)
+;; syntax hight
+(global-font-lock-mode t)
+(setq lazy-lock-defer-on-scrolling t)
+(setq font-lock-maximum-decoration t)
+;; line number
+(global-linum-mode t)
+;; clipboard
+(setq x-select-enable-clipboard t)
+(set-clipboard-coding-system 'ctext)
+;; block
+(cua-mode t)
+;; '_' as part of word
+(modify-syntax-entry ?_ "w")
+;; highlight block selection
 (transient-mark-mode t)
-
-(setq scroll-margin 3
-scroll-conservatively 10000)
 
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
@@ -56,157 +38,51 @@ scroll-conservatively 10000)
 (mouse-avoidance-mode 'animate)
 (setq mouse-yank-at-point t)
 
-;;========================================
-;; echo
-;;========================================
+(setq default-line-spacing 4)
+(setq default-fill-column 60)
+(setq default-major-mode 'text-mode)
+(setq kill-ring-max 200)
+(setq require-final-newline t)
+(setq-default truncate-partial-width-windows nil)
+;;============================================================ 
+;; evil
+;;============================================================ 
+(add-to-list 'load-path (concat emacs-where "/site-lisp/evil"))
+(require 'evil)
+(evil-mode 1)
 
-(setq visible-bell t)
-(fset 'yes-or-no-p 'y-or-n-p)
-(setq resize-mini-windows nil)
-(setq enable-recursive-minibuffers t)
-
-;;========================================
-;; status bar
-;;========================================
-
-(display-time)
-(setq display-time-24hr-format t)
-(setq display-time-day-and-date t)
-(setq display-time-interval 10)
-
-(setq column-number-mode t)
-(setq frame-title-format "%f")
-
-;;========================================
-;; editor
-;;========================================
-
-(setq-default make-backup-files nil)
-
-;; syntax highlight
-(global-font-lock-mode t)
-(setq lazy-lock-defer-on-scrolling t)
-;(setq font-lock-support-mode 'lazy-lock-mode)
-(setq font-lock-maximum-decoration t)
-
-;; line number
-(global-linum-mode t)
-;; echo error message
-;; (condition-case err
-;; (progn
-;;   (require 'xxx) )
-;;   (error
-      ;;(message "Can't load xxx-mode %s" (cdr err))))
-
-;; clipboard
-(setq x-select-enable-clipboard t)
-(set-clipboard-coding-system 'ctext)
-
-;; block
-(cua-mode t)
-
-;; '_' as part of word
-(modify-syntax-entry ?_ "w")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; plugin
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; buffer
+;;============================================================ 
+;; ibuffer
+;;============================================================ 
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;;============================================================ 
+;; color theme
+;;============================================================ 
 (require 'color-theme)
-(color-theme-comidia)
+(color-theme-pierson)
 
+;;============================================================ 
+;; other plugin
+;;============================================================ 
 (require 'browse-kill-ring)
 (global-set-key [(control c)(k)] 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
-(require 'ido)
-(ido-mode t)
-
-;; ============================================================
-;; completion
-;; ============================================================
-;; use auto-complete
-(add-to-list 'load-path (concat emacs-where "/auto-complete"))
-(require 'auto-complete)
-(require 'auto-complete-config)
-(ac-config-default)
-
-(global-set-key [(meta ?/)] 'hippie-expand)
-(setq hippie-expand-try-functions-list 
-      '(try-expand-dabbrev
-	try-expand-dabbrev-visible
-	try-expand-dabbrev-all-buffers
-	try-expand-dabbrev-from-kill
-	try-complete-file-name-partially
-	try-complete-file-name
-	try-expand-all-abbrevs
-	try-expand-list
-	try-expand-line
-	try-complete-lisp-symbol-partially
-	try-complete-lisp-symbol))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; for c/c++
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; cc-mode
-(require 'cc-mode)
-(c-set-offset 'inline-open 0)
-(c-set-offset 'friend '-)
-(c-set-offset 'substatement-open 0)
-(setq indent-tabs-mode nil)
-(setq tab-width 4)
-(setq c-basic-offset 2)
-(add-hook 'c-mode-common-hook '(lambda() (require 'xcscope)))
-
-;; ============================================================
-;; indent
-;; ============================================================
-;;Create MyCppStyle
-;; +        c-basic-offset times 1 
-;; -        c-basic-offset times -1 
-;; ++       c-basic-offset times 2 
-;; --       c-basic-offset times -2 
-;; *        c-basic-offset times 0.5 
-;; /        c-basic-offset times -0.5 
-
-(defconst MyCppStyle
-  '((c-tab-always-indent . t)
-    (c-comment-only-line-offset . 0)
-    (c-hanging-braces-alist . ((substatement-open after)
-			       (brace-list-open)))
-    (c-cleanup-list . (comment-close-slash
-		       compact-empty-funcall))
-    (c-offsets-alist . (
-			(substatement-open 	. 	0)
-			(innamespace 		. 	0)                
-			(case-label      	. 	+)           
-			(access-label 		. 	-)             
-			(inline-open 		. 	0)             
-			(block-open     	. 	0)
-			))       
-    ;; (c-echo-syntactic-information-p t)
-    (setq comment-start "/*"
-	  comment-end "*/")
-    (setq indent-tabs-mode nil))
-  "My Cpp Coding Style")
-(c-add-style "MyCppStyle" MyCppStyle)                   
-;;Define own hook
-(defun MyCppHook ()
-  (company-mode)
-  (setq indent-tabs-mode nil)
-  (setq global-hl-line-mode t)
-  (c-set-style "MyCppStyle"))      
-(add-hook 'c++-mode-hook 'MyCppHook)    
-
-;;set *.h and *.c and *.cpp files use c++ mode
-(setq auto-mode-alist
-      (cons '("\\.h\'" . c++-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.c\'" . c++-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.cpp\'" . c++-mode) auto-mode-alist))
-
+;;============================================================ 
+;; file type
+;;============================================================ 
+;; matlab mode
+(autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
+(setq auto-mode-alist 
+  (cons '("\\.m$" . matlab-mode) auto-mode-alist))
+(defun my-matlab-mode-hook ()
+  (setq matlab-indent-function t)
+  (setq fill-column 76)	
+  (turn-on-auto-fill))
+(setq matlab-mode-hook 'my-matlab-mode-hook)
+(autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
+(defun my-matlab-shell-mode-hook () 
+ '())
+(setq matlab-mode-hook 'my-matlab-mode-hook)
