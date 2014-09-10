@@ -3,6 +3,7 @@
 ;; please define emacs-where when calling this script
 ;;============================================================ 
 ;(setq emacs-where "~/repository/linux/emacs")
+;(setq emacs-where "C:/git/conf/emacs")
 ;(setq default-directory (concat emacs-where "/"))
 ;(add-to-list 'load-path (concat emacs-where "/site-lisp"))
 ;(load-file (concat emacs-where "/_emacs"))
