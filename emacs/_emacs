@@ -65,6 +65,14 @@
 (color-theme-pierson)
 
 ;;============================================================ 
+;; tramp
+;; tramp can be used link C-x C-f
+;; /plink:user@host:/path/to/your/file
+;;============================================================ 
+(require 'tramp)
+(setq tramp-default-method "plink")
+
+;;============================================================ 
 ;; other plugin
 ;;============================================================ 
 (require 'browse-kill-ring)
