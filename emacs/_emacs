@@ -40,11 +40,15 @@
 (setq mouse-yank-at-point t)
 
 (setq default-line-spacing 4)
-(setq default-fill-column 60)
+;; (setq default-fill-column 60)
 (setq default-major-mode 'text-mode)
 (setq kill-ring-max 200)
 (setq require-final-newline t)
 (setq-default truncate-partial-width-windows nil)
+;; turn off auto-fill
+(turn-off-auto-fill)
+(auto-fill-mode -1)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
 ;;============================================================ 
 ;; evil
 ;;============================================================ 
@@ -62,7 +66,8 @@
 ;; color theme
 ;;============================================================ 
 (require 'color-theme)
-(color-theme-pierson)
+;(color-theme-pierson)
+(color-theme-dark-laptop)
 
 ;;============================================================ 
 ;; tramp
@@ -88,8 +93,7 @@
   (cons '("\\.m$" . matlab-mode) auto-mode-alist))
 (defun my-matlab-mode-hook ()
   (setq matlab-indent-function t)
-  (setq fill-column 76)	
-  (turn-on-auto-fill))
+  (turn-off-auto-fill))
 (setq matlab-mode-hook 'my-matlab-mode-hook)
 (autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
 (defun my-matlab-shell-mode-hook () 
