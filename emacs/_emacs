@@ -83,10 +83,15 @@
 (require 'browse-kill-ring)
 (global-set-key [(control c)(k)] 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+;; function name
+(which-function-mode 1)
 
 ;;============================================================ 
 ;; file type
 ;;============================================================ 
+;; common mode
+(add-hook 'text-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'c-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 ;; matlab mode
 (autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
 (setq auto-mode-alist 
