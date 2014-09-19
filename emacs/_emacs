@@ -85,6 +85,9 @@
 (browse-kill-ring-default-keybindings)
 ;; function name
 (which-function-mode 1)
+;; auto pair parentherns / brackets
+(require 'autopair)
+(autopair-global-mode)
 
 ;;============================================================ 
 ;; file type
@@ -100,7 +103,6 @@
   (setq matlab-indent-function t)
   (turn-off-auto-fill))
 (setq matlab-mode-hook 'my-matlab-mode-hook)
-(autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
-(defun my-matlab-shell-mode-hook () 
- '())
+;;(autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
+;;(defun my-matlab-shell-mode-hook () '())
 (setq matlab-mode-hook 'my-matlab-mode-hook)
