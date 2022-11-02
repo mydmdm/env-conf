@@ -13,6 +13,8 @@ source conf/scripts/switch-cuda.sh
 ```
 export mypy=/usr/bin/python3.9 # select python version
 export myenv=~/envs/myenv
+git config --global user.name $(echo $USER | cut -d "." -f 2)
+git config --global user.email example@example.com
 ${mypy} -m venv ${myenv}
 source ${myenv}/bin/activate
 pip3 install torch torchvision torchaudio
