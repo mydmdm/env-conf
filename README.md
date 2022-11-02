@@ -11,18 +11,22 @@ source conf/scripts/switch-cuda.sh
 
 ## Initiate basic environments
 ```bash
-cd
 # init git
 git config --global user.name $(echo $USER | cut -d "." -f 2)
 git config --global user.email example@example.com
 # init screen
-cp -f conf/rc/screenrc ~/.screenrc
-# init python env
-export mypy=/usr/bin/python3.9 # select python version
-export myenv=~/envs/myenv
-${mypy} -m venv ${myenv}
-source ${myenv}/bin/activate
-pip3 install torch torchvision torchaudio
+cp -f rc/screenrc ~/.screenrc
+# install conda
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+source ~/.bashrc
+conda create --name myconda python=3.9
+conda activate myconda
+# init pytorch
+export mycuda=11.3
+source scripts/switch-cuda.sh ${mycuda}
+conda install pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
+python -c "import torch; print(torch.__version__)"
 
 ```
 
