@@ -16,10 +16,10 @@ git config --global user.name $(echo $USER | cut -d "." -f 2)
 git config --global user.email example@example.com
 # init screen
 cp -f rc/screenrc ~/.screenrc
-# install conda
-curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
-source ~/.bashrc
+# install conda (optional)
+# curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+# sh Miniconda3-latest-Linux-x86_64.sh
+# source ~/.bashrc
 conda create --name myconda python=3.9
 conda activate myconda
 # init pytorch
