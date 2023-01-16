@@ -20,7 +20,7 @@ cp -f rc/screenrc ~/.screenrc
 # curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # sh Miniconda3-latest-Linux-x86_64.sh
 # source ~/.bashrc
-conda create --name myconda python=3.9
+conda create -y --name myconda python=3.9
 conda activate myconda
 # init pytorch
 export mycuda=11.3
