@@ -25,7 +25,7 @@ conda activate myconda
 # init pytorch
 export mycuda=11.3
 source scripts/switch-cuda.sh ${mycuda}
-conda install pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
+conda install -y pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
 python -c "import torch; print(torch.__version__)"
 
 ```
