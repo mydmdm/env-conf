@@ -31,6 +31,8 @@ source scripts/switch-cuda.sh ${mycuda}
 conda install -y pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
 python -c "import torch; print(torch.__version__)"
 
+pip install -r requirements.txt
+
 ```
 
 ## References
