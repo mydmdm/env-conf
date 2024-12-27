@@ -1,42 +1,33 @@
-Configuration
+Usage
 ====
 
-## Query basic information
-```bash
-echo $USER
-ls /usr/bin/python* | grep -v "config"
-source conf/scripts/switch-cuda.sh
+This repository contains some useful scripts and configurations for setting up a new working environment, particularly for deep learning research.
 
+## Scripts
+
+The `scripts` directory contains the following scripts:
+| Script | Description |
+| --- | --- |
+| `switch-cuda.sh` | Switch between different CUDA versions. |
+| `setup_git.sh` | Setup git configurations. |
+| `setup_conda.sh` | Install and setup conda configurations. |
+| `test_python_env.sh` | Test python environment. |
+
+## Frequently used commands
+
+- To install `PyTorch` with `CUDA` support (refer to [PyTorch](https://pytorch.org/get-started/locally/))
+```bash
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 ```
 
-## Initiate basic environments
+- Check status of nvidia driver (e.g., when `nvidia-smi` is not working).
 ```bash
-# init git
-git config --global user.name $(echo $USER | cut -d "." -f 2)
-git config --global user.email example@example.com
-# init screen
-cp -f rc/screenrc ~/.screenrc
-
-# install conda (optional)
-# curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-# sh Miniconda3-latest-Linux-x86_64.sh
-# source ~/.bashrc
-conda init # may require restart shell after init
-
-conda create -y --name myconda python=3.9
-conda activate myconda
-# init pytorch
-export mycuda=11.3
-source scripts/switch-cuda.sh ${mycuda}
-conda install -y pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
-python -c "import torch; print(torch.__version__)"
-
-pip install -r requirements.txt
-
+dkms status
+sudo dpkg --configure -a
 ```
 
 ## References
-Some useful configuration and scripts to configure a new working environment. 
+Some useful configuration and scripts to configure a new working environment.
 
 ### CUDA compatibility
 Actually we need not worry about the preinstalled cuda versions. According to [this reply](https://discuss.pytorch.org/t/install-pytorch-for-cuda-11-3-with-pip/152299/5)
@@ -44,17 +35,5 @@ Actually we need not worry about the preinstalled cuda versions. According to [t
 
 To switch between cuda versions, refer to [switch-cuda](https://github.com/phohenecker/switch-cuda)
 
-### Linux `screen` 
-Start and resume a new session with below command
-```bash
-screen -S session_name
-screen -r session_id
-```
 
-### Vim
-In case the connection is not stable for VSC remote mode, use `vim` instead.
-Refer to the [python-vim](https://github.com/ets-labs/python-vimrc).
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ets-labs/python-vimrc/master/setup.sh)"
-```
 
